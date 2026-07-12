@@ -1,0 +1,43 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: fastapi_backend/Dockerfile
+    container_name: sen401_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # Bind-mount the sqlite file so student data persists across
+      # `docker compose up`/`down` cycles and is editable from the host.
+      - ./students.db:/app/students.db
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - sen401_net
+
+  frontend:
+    build:
+      context: .
+      dockerfile: main_application/Dockerfile
+    container_name: sen401_frontend
+    ports:
+      - "8501:8501"
+    environment:
+      # Container-to-container calls use the service name "backend" as the
+      # hostname on the shared Docker network, not 127.0.0.1.
+      - API_BASE_URL=http://backend:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - sen401_net
+
+networks:
+  sen401_net:
+    driver: bridge
