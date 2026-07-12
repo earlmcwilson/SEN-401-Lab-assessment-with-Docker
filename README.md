@@ -41,5 +41,11 @@ SEN-401-Lab-assessment-with-Docker/
 git clone https://github.com/earlmcwilson/SEN-401-Lab-assessment-with-Docker.git
 cd SEN-401-Lab-assessment-with-Docker
 docker compose up --build
+
+Where to look
+
+Frontend (UI): http://localhost:8501 (The Streamlit app)
+Backend root: http://localhost:8000 (JSON status + links to docs)
+Backend interactive docs: http://localhost:8000/docs (Swagger UI)
 ```
 
