@@ -43,22 +43,3 @@ cd SEN-401-Lab-assessment-with-Docker
 docker compose up --build
 ```
 
-Wait for both of these lines in the terminal before continuing:
-
-```
-sen401_backend   | INFO:     Application startup complete.
-sen401_frontend  | You can now view your Streamlit app in your browser.
-```
-
-### Where to look
-
-| Frontend (UI) | http://localhost:8501 | The Streamlit app |
-| Backend root | http://localhost:8000 | JSON status + links to docs |
-| **Backend interactive docs** | **http://localhost:8000/docs** | Swagger UI |
-| Backend alt docs | http://localhost:8000/redoc | Read-only API reference |
-| Student list (raw JSON) | http://localhost:8000/students/ | Seeded student records |
-
-**Stop the app:**
-```bash
-docker compose down
-```
